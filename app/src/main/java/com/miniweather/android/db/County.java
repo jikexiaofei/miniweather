@@ -3,7 +3,12 @@ package com.miniweather.android.db;
 import org.litepal.crud.DataSupport;
 
 /**
- * Created by zhanghu on 2017/6/9.
+ * @author Jason
+ *
+ * @time 2017/6/9  10:05
+ *
+ * @desc 记录County的信息
+ *
  */
 
 public class County extends DataSupport {

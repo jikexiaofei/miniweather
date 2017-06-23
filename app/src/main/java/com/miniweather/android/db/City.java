@@ -1,15 +1,14 @@
 package com.miniweather.android.db;
 
 import org.litepal.crud.DataSupport;
-
 /**
- * Created by zhanghu on 2017/6/9.
+ * @author Jason
+ *
+ * @time 2017/6/9  10:00
+ *
+ * @desc city城市记录的信息
+ *
  */
-
-/**
- * city记录城市的信息
- */
-
 public class City extends DataSupport {
     private int id;
 

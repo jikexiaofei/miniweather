@@ -2,10 +2,8 @@ package com.miniweather.android.fragment;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
@@ -22,14 +20,19 @@ import com.miniweather.android.db.City;
 import com.miniweather.android.db.County;
 import com.miniweather.android.db.Province;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
- * Created by zhanghu on 2017/6/11.
+ * @author Jason
+ *
+ *
+ * @time 2017/6/11  9:55
+ *
+ * @desc ${TODD}
+ *
  */
 
 public class ChooseAreaFragment extends Fragment {
@@ -108,7 +111,14 @@ public class ChooseAreaFragment extends Fragment {
         queryProvince();
     }
 
+    /**
+     * 查询全国所有的省，优先从本地数据库查询，如果没有再从服务器上查询
+     */
+
     private void queryProvince() {
+        titleText.setText("中国");
+        backButton.setVisibility(View.GONE);
+        provinceList = DataSupport.findAll(Province.class);
     }
 
     private void queryCounty() {
