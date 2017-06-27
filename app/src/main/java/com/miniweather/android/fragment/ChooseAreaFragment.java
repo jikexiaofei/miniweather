@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.miniweather.android.R;
 import com.miniweather.android.db.City;
@@ -135,7 +136,7 @@ public class ChooseAreaFragment extends Fragment {
             listView.setSelection(0);
             currentLevel = LEVEL_PROVINCE;
         } else {
-            String address = "http://guolin.tech/ap/china";
+            String address = "http://guolin.tech/api/china";
             queryFromServer(address,"province");
         }
     }
@@ -147,7 +148,7 @@ public class ChooseAreaFragment extends Fragment {
         backButton.setVisibility(View.VISIBLE);
         cityList = DataSupport.where("provinceid = ?",String.valueOf(selectedProvince.
                 getId())).find(City.class);
-        if(cityList.size() > 0) {
+        if (cityList.size() > 0) {
             dataList.clear();
             for (City city : cityList) {
                 dataList.add(city.getCityName());
@@ -155,10 +156,10 @@ public class ChooseAreaFragment extends Fragment {
             adapter.notifyDataSetChanged();
             listView.setSelection(0);
             currentLevel = LEVEL_CITY;
-        }else{
+        } else {
             int provinceCode = selectedProvince.getProvinceCode();
-            String address = "http://guolin.tech/ap/china/" + provinceCode;
-            queryFromServer(address,"city");
+            String address = "http://guolin.tech/api/china/" + provinceCode;
+            queryFromServer(address, "city");
         }
     }
     /**
@@ -173,10 +174,13 @@ public class ChooseAreaFragment extends Fragment {
             for (County county : countyList){
                 dataList.add(county.getCountyName());
             }
+            adapter.notifyDataSetChanged();
+            listView.setSelection(0);
+            currentLevel = LEVEL_COUNTY;
         }else {
             int provinceCode = selectedProvince.getProvinceCode();
             int cityCode = selectedCity.getCityCode();
-            String address = "http://guolin.tech/ap/china/"+provinceCode+"/"+cityCode;
+            String address = "http://guolin.tech/api/china/"+provinceCode+"/"+cityCode;
             queryFromServer(address,"county");
         }
     }
@@ -190,7 +194,7 @@ public class ChooseAreaFragment extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 String responseText = response.body().string();
                 boolean result = false;
-                if("prvince".equals(type)) {
+                if("province".equals(type)) {
                     result = Utility.handleProvinceResponse(responseText);
                 } else if("city".equals(type)) {
                     result = Utility.handleCityResponse(responseText,selectedProvince.getId());
@@ -220,7 +224,7 @@ public class ChooseAreaFragment extends Fragment {
                     @Override
                     public void run() {
                         closeProgressDialog();
-                        //Toast.makeText(getActivity(),"加载失败",Toast.LENGTH_SHORT).show();
+                         Toast.makeText(getActivity(),"加载失败", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

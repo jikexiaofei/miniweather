@@ -2,7 +2,6 @@ package com.miniweather.android.util;
 
 import android.text.TextUtils;
 
-import com.google.gson.JsonObject;
 import com.miniweather.android.db.City;
 import com.miniweather.android.db.County;
 import com.miniweather.android.db.Province;
@@ -47,7 +46,7 @@ public class Utility {
                     City city = new City();
                     city.setCityName(cityObject.getString("name"));
                     city.setCityCode(cityObject.getInt("id"));
-                    city.setProvinceId(cityObject.getInt("provinceId"));
+                    city.setProvinceId(provinceId);
                     city.save();
                 }
                 return true;
@@ -66,7 +65,7 @@ public class Utility {
                     County county = new County();
                     county.setCountyName(countyObject.getString("name"));
                     county.setWeatherId(countyObject.getString("weather_id"));
-                    county.setCityId(countyObject.getInt("cityId"));
+                    county.setCityId(cityId);
                     county.save();
                 }
                 return true;
